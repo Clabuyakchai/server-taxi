@@ -11,4 +11,6 @@ import java.util.List;
 public interface LocalRepository extends JpaRepository<Local, Long> {
 //    @Query("SELECT '*' FROM local")
 //    List<Local> getAllLocal();
+    Local findLocalByPhone(String phoneNumber);
+    Boolean existsLocalByPhone(String phoneNumber);
 }
