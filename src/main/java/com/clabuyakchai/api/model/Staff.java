@@ -1,5 +1,7 @@
 package com.clabuyakchai.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,6 +19,7 @@ public class Staff {
     private String address;
     @Column(nullable = false)
     private String gender;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "busID", referencedColumnName = "busID")
     private Bus bus;

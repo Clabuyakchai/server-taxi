@@ -31,13 +31,10 @@ public class LocalServiceImpl implements LocalService {
         return localRepository.findAll();
     }
 
+    //TODO
     @Override
     public String signInUp(LocalDTO localDTO) {
-        Local local = new Local();
-        local.setEmail(localDTO.getEmail());
-        local.setGender(localDTO.getGender());
-        local.setName(localDTO.getName());
-        local.setPhone(localDTO.getPhone());
+        Local local = mapLocalDtoToLocal(localDTO);
 
         if (!localRepository.existsLocalByPhone(local.getPhone())){
             localRepository.save(local);
@@ -46,5 +43,50 @@ public class LocalServiceImpl implements LocalService {
         }
 
         return jwtTokenProvider.createToken(local.getPhone());
+    }
+
+    @Override
+    public LocalDTO getLocalByPhone(String phone) {
+        return mapLocalToLocalDto(localRepository.findLocalByPhone(phone));
+    }
+
+    @Override
+    public LocalDTO updateLocal(LocalDTO localDTO) {
+        Local local = localRepository.findLocalByPhone(localDTO.getPhone());
+        local = mapLocalDtoToLocal(local, localDTO);
+        localRepository.save(local);
+        return mapLocalToLocalDto(local);
+    }
+
+    @Override
+    public void deleteLocalByPhone(String phone) {
+        Local local = localRepository.findLocalByPhone(phone);
+        localRepository.delete(local);
+    }
+
+    private LocalDTO mapLocalToLocalDto(Local local){
+        LocalDTO localDTO = new LocalDTO();
+        localDTO.setEmail(local.getEmail());
+        localDTO.setGender(local.getGender());
+        localDTO.setName(local.getName());
+        localDTO.setPhone(local.getPhone());
+        return localDTO;
+    }
+
+    private Local mapLocalDtoToLocal(LocalDTO localDTO){
+        Local local = new Local();
+        local.setEmail(localDTO.getEmail());
+        local.setGender(localDTO.getGender());
+        local.setName(localDTO.getName());
+        local.setPhone(localDTO.getPhone());
+        return local;
+    }
+
+    private Local mapLocalDtoToLocal(Local local, LocalDTO localDTO){
+        local.setEmail(localDTO.getEmail());
+        local.setGender(localDTO.getGender());
+        local.setName(localDTO.getName());
+        local.setPhone(localDTO.getPhone());
+        return local;
     }
 }
