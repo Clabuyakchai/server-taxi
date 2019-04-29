@@ -28,4 +28,19 @@ public class LocalController {
     public String signInUp(@RequestBody LocalDTO localDTO){
         return localService.signInUp(localDTO);
     }
+
+    @GetMapping(value = "/me")
+    public LocalDTO getLocal(@RequestParam String phone){
+        return localService.getLocalByPhone(phone);
+    }
+
+    @PostMapping(value = "/update")
+    public LocalDTO updateLocal(@RequestBody LocalDTO localDTO){
+        return localService.updateLocal(localDTO);
+    }
+
+    @GetMapping(value = "/delete/{phone}")
+    public void deleteLocal(@PathVariable String phone){
+        localService.deleteLocalByPhone(phone);
+    }
 }
