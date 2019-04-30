@@ -17,14 +17,8 @@ public class Bus {
     @ManyToOne
     @JoinColumn(name = "typeBusID", referencedColumnName = "typeBusID")
     private TypeBus typeBus;
-
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "busroute",
-            joinColumns = {@JoinColumn(name = "busID")},
-            inverseJoinColumns = {@JoinColumn(name = "routeID")}
-    )
-    private Set<Route> routes = new HashSet<>();
+    @OneToMany(mappedBy = "busRoute")
+    private List<BusRoute> busRoutes;
 
 
     public Long getBusID() {
@@ -59,11 +53,11 @@ public class Bus {
         this.typeBus = typeBus;
     }
 
-    public Set<Route> getRoutes() {
-        return routes;
+    public List<BusRoute> getBusRoutes() {
+        return busRoutes;
     }
 
-    public void setRoutes(Set<Route> routes) {
-        this.routes = routes;
+    public void setBusRoutes(List<BusRoute> busRoutes) {
+        this.busRoutes = busRoutes;
     }
 }

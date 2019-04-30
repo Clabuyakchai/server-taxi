@@ -3,10 +3,12 @@ package com.clabuyakchai.api.dto;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class RouteDTO {
-    @SerializedName("id")
-    @Expose
-    private Long id;
+//    @SerializedName("id")
+//    @Expose
+//    private Long id;
     @SerializedName("from")
     @Expose
     private String from;
@@ -16,14 +18,12 @@ public class RouteDTO {
     @SerializedName("price")
     @Expose
     private Float price;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @SerializedName("datetime")
+    @Expose
+    private String datetime;
+    @SerializedName("stationsID")
+    @Expose
+    private List<Long> stationsID;
 
     public String getFrom() {
         return from;
@@ -47,5 +47,21 @@ public class RouteDTO {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
+
+    public List<Long> getStationsID() {
+        return stationsID;
+    }
+
+    public void setStationsID(List<Long> stationsID) {
+        this.stationsID = stationsID;
     }
 }

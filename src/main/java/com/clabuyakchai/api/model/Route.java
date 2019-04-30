@@ -17,10 +17,10 @@ public class Route {
     private String to;
     @Column(name = "price", nullable = false)
     private Float price;
-    @ManyToMany(mappedBy = "routes")
-    private Set<Bus> buses = new HashSet<>();
-    @ManyToMany(mappedBy = "routes")
-    private Set<Station> stations = new HashSet<>();
+    @OneToMany(mappedBy = "routeBus")
+    private List<BusRoute> busRoutes;
+    @OneToMany(mappedBy = "routeStation")
+    private List<StationRoute> stationRoutes;
     @OneToMany(mappedBy = "route")
     private List<Timetable> timetables;
 
@@ -56,21 +56,21 @@ public class Route {
         this.price = price;
     }
 
-    public Set<Bus> getBuses() {
-        return buses;
+    public List<BusRoute> getBusRoutes() {
+        return busRoutes;
     }
 
-    public void setBuses(Set<Bus> buses) {
-        this.buses = buses;
+    public void setBusRoutes(List<BusRoute> busRoutes) {
+        this.busRoutes = busRoutes;
     }
 
-//    public Set<Station> getStations() {
-//        return stations;
-//    }
-//
-//    public void setStations(Set<Station> stations) {
-//        this.stations = stations;
-//    }
+    public List<StationRoute> getStationRoutes() {
+        return stationRoutes;
+    }
+
+    public void setStationRoutes(List<StationRoute> stationRoutes) {
+        this.stationRoutes = stationRoutes;
+    }
 
     public List<Timetable> getTimetables() {
         return timetables;

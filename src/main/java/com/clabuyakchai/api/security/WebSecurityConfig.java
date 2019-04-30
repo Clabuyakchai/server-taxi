@@ -36,6 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/local/*").permitAll()
                 .antMatchers("/staff/*").permitAll()
                 .antMatchers("/station/*").permitAll()
+                .antMatchers("/route/*").permitAll()
 
 //            .antMatchers("/userpage").permitAll()
                 // Disallow everything else..

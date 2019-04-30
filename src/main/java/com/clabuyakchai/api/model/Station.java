@@ -2,6 +2,7 @@ package com.clabuyakchai.api.model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,13 +16,8 @@ public class Station {
     private String city;
     @Column(nullable = false)
     private String location;
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "stationroute",
-            joinColumns = {@JoinColumn(name = "stationID")},
-            inverseJoinColumns = {@JoinColumn(name = "routeID")}
-    )
-    private Set<Route> routes = new HashSet<>();
+    @OneToMany(mappedBy = "station")
+    private List<StationRoute> stationRoutes;
 
     public Long getStationID() {
         return stationID;
@@ -55,11 +51,11 @@ public class Station {
         this.location = location;
     }
 
-    public Set<Route> getRoutes() {
-        return routes;
+    public List<StationRoute> getStationRoutes() {
+        return stationRoutes;
     }
 
-    public void setRoutes(Set<Route> routes) {
-        this.routes = routes;
+    public void setStationRoutes(List<StationRoute> stationRoutes) {
+        this.stationRoutes = stationRoutes;
     }
 }
