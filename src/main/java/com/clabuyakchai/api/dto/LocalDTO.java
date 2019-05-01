@@ -4,6 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class LocalDTO {
+    @SerializedName("localID")
+    @Expose
+    private Long localID;
     @SerializedName("phone")
     @Expose
     private String phone;
@@ -17,12 +20,23 @@ public class LocalDTO {
     @Expose
     private String name;
 
-    public String getName() {
-        return name;
+    public LocalDTO() {
     }
 
-    public void setName(String name) {
+    public LocalDTO(Long localID, String phone, String email, String gender, String name) {
+        this.localID = localID;
+        this.phone = phone;
+        this.email = email;
+        this.gender = gender;
         this.name = name;
+    }
+
+    public Long getLocalID() {
+        return localID;
+    }
+
+    public void setLocalID(Long localID) {
+        this.localID = localID;
     }
 
     public String getPhone() {
@@ -47,5 +61,13 @@ public class LocalDTO {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

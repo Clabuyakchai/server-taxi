@@ -22,7 +22,7 @@ public class StationServiceImpl implements StationService {
 
     @Override
     public void addStation(StationDTO stationDTO) {
-        stationRepository.save(mapStationDtoToStation(stationDTO));
+        stationRepository.save(mapStationDtoToStation(stationDTO, false));
     }
 
     @Override
@@ -38,38 +38,36 @@ public class StationServiceImpl implements StationService {
     @Override
     public List<StationDTO> getStationsByCity(String city) {
         List<Station> stations = stationRepository.findStationsByCity(city);
-        return mapListStationToListStatioDto(stations);
+        return mapListStationToListStationDto(stations);
     }
 
     private StationDTO mapStationToStationDto(Station station){
-        StationDTO stationDTO = new StationDTO();
-        stationDTO.setStationID(station.getStationID());
-        stationDTO.setCity(station.getCity());
-        stationDTO.setLocation(station.getLocation());
-        stationDTO.setName(station.getName());
-        return stationDTO;
+        return new StationDTO(station.getStationID(),
+                station.getName(),
+                station.getCity(),
+                station.getLocation());
     }
 
-    private Station mapStationDtoToStation(StationDTO stationDTO){
-        Station station = new Station();
-        station.setStationID(stationDTO.getStationID());
-        station.setCity(stationDTO.getCity());
-        station.setLocation(stationDTO.getLocation());
-        station.setName(stationDTO.getName());
+    private Station mapStationDtoToStation(StationDTO stationDTO, Boolean flag){
+         Station station = new Station(stationDTO.getName(),
+                stationDTO.getCity(),
+                stationDTO.getLocation());
+
+         if(flag){
+             station.setStationID(stationDTO.getStationID());
+         }
+
         return station;
     }
 
-    private List<StationDTO> mapListStationToListStatioDto(List<Station> stations){
+    private List<StationDTO> mapListStationToListStationDto(List<Station> stations){
         List<StationDTO> stationDTOList = new ArrayList<>();
-        for (Station s: stations) {
-            StationDTO stationDTO = new StationDTO();
-            stationDTO.setStationID(s.getStationID());
-            stationDTO.setName(s.getName());
-            stationDTO.setLocation(s.getLocation());
-            stationDTO.setCity(s.getCity());
-            stationDTOList.add(stationDTO);
+        for (Station station: stations) {
+            stationDTOList.add(new StationDTO(station.getStationID(),
+                    station.getName(),
+                    station.getCity(),
+                    station.getLocation()));
         }
-
         return stationDTOList;
     }
 }

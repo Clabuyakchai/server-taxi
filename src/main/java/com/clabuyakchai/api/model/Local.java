@@ -22,6 +22,16 @@ public class Local {
     @OneToMany(mappedBy = "local")
     private List<Booking> bookings;
 
+    public Local() {
+    }
+
+    public Local(String name, String email, String phone, String gender) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.gender = gender;
+    }
+
     public Long getLocalID() {
         return localID;
     }

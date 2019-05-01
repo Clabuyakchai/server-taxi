@@ -24,6 +24,17 @@ public class Staff {
     @JoinColumn(name = "busID", referencedColumnName = "busID")
     private Bus bus;
 
+    public Staff() {
+    }
+
+    public Staff(String name, String email, String phone, String address, String gender) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.gender = gender;
+    }
+
     public Long getStaffID() {
         return staffID;
     }

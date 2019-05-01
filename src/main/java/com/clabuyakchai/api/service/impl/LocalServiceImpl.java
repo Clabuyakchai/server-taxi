@@ -31,18 +31,20 @@ public class LocalServiceImpl implements LocalService {
         return localRepository.findAll();
     }
 
-    //TODO
     @Override
-    public String signInUp(LocalDTO localDTO) {
-        Local local = mapLocalDtoToLocal(localDTO);
-
-        if (!localRepository.existsLocalByPhone(local.getPhone())){
-            localRepository.save(local);
+    public String signIn(String phone) {
+        if (localRepository.existsLocalByPhone(phone)){
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(phone, "123"));
+            return jwtTokenProvider.createToken(phone);
         } else {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(local.getPhone(), "123"));
+            return "null";
         }
+    }
 
-        return jwtTokenProvider.createToken(local.getPhone());
+    @Override
+    public String signUp(LocalDTO localDTO) {
+        localRepository.save(mapLocalDtoToLocal(localDTO, false));
+        return jwtTokenProvider.createToken(localDTO.getPhone());
     }
 
     @Override
@@ -52,10 +54,8 @@ public class LocalServiceImpl implements LocalService {
 
     @Override
     public LocalDTO updateLocal(LocalDTO localDTO) {
-        Local local = localRepository.findLocalByPhone(localDTO.getPhone());
-        local = mapLocalDtoToLocal(local, localDTO);
-        localRepository.save(local);
-        return mapLocalToLocalDto(local);
+        localRepository.save(mapLocalDtoToLocal(localDTO, true));
+        return localDTO;
     }
 
     @Override
@@ -64,29 +64,24 @@ public class LocalServiceImpl implements LocalService {
         localRepository.delete(local);
     }
 
-    private LocalDTO mapLocalToLocalDto(Local local){
-        LocalDTO localDTO = new LocalDTO();
-        localDTO.setEmail(local.getEmail());
-        localDTO.setGender(local.getGender());
-        localDTO.setName(local.getName());
-        localDTO.setPhone(local.getPhone());
-        return localDTO;
+    private LocalDTO mapLocalToLocalDto(Local local) {
+        return new LocalDTO(local.getLocalID(),
+                local.getPhone(),
+                local.getEmail(),
+                local.getGender(),
+                local.getName());
     }
 
-    private Local mapLocalDtoToLocal(LocalDTO localDTO){
-        Local local = new Local();
-        local.setEmail(localDTO.getEmail());
-        local.setGender(localDTO.getGender());
-        local.setName(localDTO.getName());
-        local.setPhone(localDTO.getPhone());
-        return local;
-    }
+    private Local mapLocalDtoToLocal(LocalDTO localDTO, Boolean flag) {
+        Local local = new Local(localDTO.getName(),
+                localDTO.getEmail(),
+                localDTO.getPhone(),
+                localDTO.getGender());
 
-    private Local mapLocalDtoToLocal(Local local, LocalDTO localDTO){
-        local.setEmail(localDTO.getEmail());
-        local.setGender(localDTO.getGender());
-        local.setName(localDTO.getName());
-        local.setPhone(localDTO.getPhone());
+        if (flag){
+            local.setLocalID(localDTO.getLocalID());
+        }
+
         return local;
     }
 }

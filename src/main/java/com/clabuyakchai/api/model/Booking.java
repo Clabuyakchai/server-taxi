@@ -14,9 +14,6 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "localID", referencedColumnName = "localID")
     private Local local;
-    @ManyToOne
-    @JoinColumn(name = "seatID", referencedColumnName = "seatID")
-    private Seat seat;
 
     public Long getBookingID() {
         return bookingID;
@@ -40,13 +37,5 @@ public class Booking {
 
     public void setLocal(Local local) {
         this.local = local;
-    }
-
-    public Seat getSeat() {
-        return seat;
-    }
-
-    public void setSeat(Seat seat) {
-        this.seat = seat;
     }
 }

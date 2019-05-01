@@ -24,6 +24,15 @@ public class Route {
     @OneToMany(mappedBy = "route")
     private List<Timetable> timetables;
 
+    public Route() {
+    }
+
+    public Route(String from, String to, Float price) {
+        this.from = from;
+        this.to = to;
+        this.price = price;
+    }
+
     public Long getRouteID() {
         return routeID;
     }
