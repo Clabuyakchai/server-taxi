@@ -12,14 +12,23 @@ public class Bus {
     private Long busID;
     @Column(nullable = false)
     private String busmodel;
+    @Column(nullable = false)
+    private String carNumber;
+    @Column(nullable = false)
+    private Integer countSeat;
     @OneToMany(mappedBy = "bus")
     private List<Staff> staff;
-    @ManyToOne
-    @JoinColumn(name = "typeBusID", referencedColumnName = "typeBusID")
-    private TypeBus typeBus;
     @OneToMany(mappedBy = "busRoute")
     private List<BusRoute> busRoutes;
 
+    public Bus() {
+    }
+
+    public Bus(String busmodel, String carNumber, Integer countSeat) {
+        this.busmodel = busmodel;
+        this.carNumber = carNumber;
+        this.countSeat = countSeat;
+    }
 
     public Long getBusID() {
         return busID;
@@ -37,20 +46,28 @@ public class Bus {
         this.busmodel = busmodel;
     }
 
+    public String getCarNumber() {
+        return carNumber;
+    }
+
+    public void setCarNumber(String carNumber) {
+        this.carNumber = carNumber;
+    }
+
+    public Integer getCountSeat() {
+        return countSeat;
+    }
+
+    public void setCountSeat(Integer countSeat) {
+        this.countSeat = countSeat;
+    }
+
     public List<Staff> getStaff() {
         return staff;
     }
 
     public void setStaff(List<Staff> staff) {
         this.staff = staff;
-    }
-
-    public TypeBus getTypeBus() {
-        return typeBus;
-    }
-
-    public void setTypeBus(TypeBus typeBus) {
-        this.typeBus = typeBus;
     }
 
     public List<BusRoute> getBusRoutes() {

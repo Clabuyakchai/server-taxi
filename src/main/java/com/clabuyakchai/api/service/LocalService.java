@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface LocalService {
     List<Local> getAll();
-    String signInUp(LocalDTO localDTO);
+    String signIn(String phone);
+    String signUp(LocalDTO localDTO);
     LocalDTO getLocalByPhone(String phone);
     LocalDTO updateLocal(LocalDTO localDTO);
     void deleteLocalByPhone(String phone);

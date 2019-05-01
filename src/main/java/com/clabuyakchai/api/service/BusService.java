@@ -4,4 +4,5 @@ import com.clabuyakchai.api.dto.BusDTO;
 
 public interface BusService {
     void addBus(BusDTO busDTO);
+    void deleteBus(Long busID);
 }

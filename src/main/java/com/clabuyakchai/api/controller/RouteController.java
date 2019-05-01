@@ -27,7 +27,8 @@ public class RouteController {
           "price" : "5.5",
           "stations" : [{ "stationID": 1, "name": "Ploshchad' svobody", "city": "Volozhin", "location": "123 123" },
                         { "stationID": 2, "name": "Novyy rayon", "city": "Volozhin", "location": "123 123" },
-                        { "stationID": 3, "name": "Kamennaya gorka", "city": "Minsk", "location": "123 123" }]
+                        { "stationID": 3, "name": "Kamennaya gorka", "city": "Minsk", "location": "123 123" }],
+          "bus" : [{"busID" : 1, "busmodel" : "Volkswagen Sprinter", "carNumber" : "AB1233-5", "countSeat" : "17"}]
         }
 
  */

@@ -24,9 +24,23 @@ public class LocalController {
         return localService.getAll();
     }
 
-    @PostMapping(value = "/signIn")
-    public String signInUp(@RequestBody LocalDTO localDTO){
-        return localService.signInUp(localDTO);
+    @GetMapping(value = "/signin")
+    public String signIn(@RequestParam String phone){
+        return localService.signIn(phone);
+    }
+
+    /*
+    {
+          "phone" : "375441234567",
+          "email" : "chai@gmail.com",
+          "gender" : "male",
+          "name" : "Roman"
+}
+     */
+
+    @PostMapping(value = "/signup")
+    public String signUp(@RequestBody LocalDTO localDTO){
+        return localService.signUp(localDTO);
     }
 
     @GetMapping(value = "/me")

@@ -15,9 +15,25 @@ public class StaffController {
         this.staffService = staffService;
     }
 
-    @PostMapping(value = "/signIn")
-    public String signInUp(@RequestBody StaffDTO staffDTO){
-        return staffService.signInUp(staffDTO);
+
+    /*
+    {
+  "phone" : "+374291234567",
+  "email" : "123@gmail.com",
+  "gender" : "male",
+  "name" : "Maxik",
+  "address" : "Minsk"
+}
+
+     */
+    @GetMapping(value = "/signin")
+    public String signIn(@RequestParam String phone){
+        return staffService.signIn(phone);
+    }
+
+    @PostMapping(value = "/signup")
+    public String signUp(@RequestBody StaffDTO staffDTO){
+        return staffService.signUp(staffDTO);
     }
 
     @GetMapping(value = "/me")
@@ -33,5 +49,10 @@ public class StaffController {
     @GetMapping(value = "/delete/{phone}")
     public void deleteStaff(@PathVariable String phone){
         staffService.deleteStaffByPhone(phone);
+    }
+
+    @GetMapping(value = "/drivebus")
+    public void driveBus(@RequestParam Long staffID,@RequestParam Long busID){
+        staffService.driveBus(staffID, busID);
     }
 }

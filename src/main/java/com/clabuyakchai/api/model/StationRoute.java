@@ -14,6 +14,14 @@ public class StationRoute {
     @JoinColumn(name = "stationID", referencedColumnName = "stationID")
     private Station station;
 
+    public StationRoute() {
+    }
+
+    public StationRoute(Route routeStation, Station station) {
+        this.routeStation = routeStation;
+        this.station = station;
+    }
+
     public Long getStationRouteID() {
         return stationRouteID;
     }

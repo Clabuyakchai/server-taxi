@@ -17,6 +17,16 @@ public class StationDTO {
     @Expose
     private String location;
 
+    public StationDTO() {
+    }
+
+    public StationDTO(Long stationID, String name, String city, String location) {
+        this.stationID = stationID;
+        this.name = name;
+        this.city = city;
+        this.location = location;
+    }
+
     public Long getStationID() {
         return stationID;
     }

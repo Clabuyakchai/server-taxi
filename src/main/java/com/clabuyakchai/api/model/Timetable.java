@@ -16,6 +16,18 @@ public class Timetable {
     @OneToMany(mappedBy = "timetable")
     private List<Booking> bookingList;
 
+    public Timetable() {
+    }
+
+    public Timetable(String datetime) {
+        this.datetime = datetime;
+    }
+
+    public Timetable(String datetime, Route route) {
+        this.datetime = datetime;
+        this.route = route;
+    }
+
     public Long getTimetableID() {
         return timetableID;
     }

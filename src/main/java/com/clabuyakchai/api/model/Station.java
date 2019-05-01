@@ -22,6 +22,15 @@ public class Station {
     @OneToMany(mappedBy = "station")
     private List<StationRoute> stationRoutes;
 
+    public Station() {
+    }
+
+    public Station(String name, String city, String location) {
+        this.name = name;
+        this.city = city;
+        this.location = location;
+    }
+
     public Long getStationID() {
         return stationID;
     }

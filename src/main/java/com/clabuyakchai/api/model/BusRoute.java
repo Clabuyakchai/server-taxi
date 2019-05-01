@@ -13,7 +13,15 @@ public class BusRoute {
     @ManyToOne
     @JoinColumn(name = "busID", referencedColumnName = "busID")
     private Bus busRoute;
-    
+
+    public BusRoute() {
+    }
+
+    public BusRoute(Route routeBus, Bus busRoute) {
+        this.routeBus = routeBus;
+        this.busRoute = busRoute;
+    }
+
     public Long getBusRouteID() {
         return busRouteID;
     }
