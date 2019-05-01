@@ -14,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class RouteServiceImpl implements RouteService {
@@ -43,33 +41,33 @@ public class RouteServiceImpl implements RouteService {
 
         route = routeRepository.findTopByOrderByRouteIDDesc();
 
-        setStationRoute(route, routeDTO.getStationsID());
+        setStationRoute(route, routeDTO.getStations());
         addTimetable(routeDTO.getDatetime(), route);
 
 //        routeRepository.save(mapRouteDtoToRoute(routeDTO));
     }
 
     @Override
-    public List<RouteDTO> findByFromAndTo(String from, String to) {
-        List<Route> routes = routeRepository.findRoutesByFromAndTo(from, to);
-//        Station station = stationRepository.findStationByStationID(2L);
-//        Station station2 = stationRepository.findStationByStationID(3L);
-//        Set<Station> stations = new HashSet<>();
-//        stations.add(station);
-//        stations.add(station2);
-//
-//        Route route = routes.get(0);
-//        route.setStations(stations);
-//        routeRepository.save(route);
-//
-//        Set<Route> routeSet = new HashSet<>();
-//        routeSet.add(route);
-//        station.setRoutes(routeSet);
-//        station2.setRoutes(routeSet);
-//
-//        stationRepository.save(station);
-//        stationRepository.save(station2);
-        return mapListRouteToListRouteDto(routes);
+    public List<RouteDTO> findByDatetimeAndFromAndTo(String datetime, String from, String to) {
+        List<Timetable> timetables = timetableRepository.findTimetableByDatetimeContainingAndRoute_FromAndRoute_To(datetime, from, to);
+        List<RouteDTO> routeDTOList = new ArrayList<>();
+        for (Timetable t : timetables) {
+            RouteDTO routeDTO = new RouteDTO();
+            routeDTO.setDatetime(t.getDatetime());
+            routeDTO.setFrom(t.getRoute().getFrom());
+            routeDTO.setTo(t.getRoute().getTo());
+            routeDTO.setPrice(t.getRoute().getPrice());
+
+            List<StationRoute> stationRoutes = t.getRoute().getStationRoutes();
+            List<Station> stations = new ArrayList<>();
+            for (StationRoute stationRoute:
+                 stationRoutes) {
+                stations.add(stationRoute.getStation());
+            }
+            routeDTO.setStations(stations);
+            routeDTOList.add(routeDTO);
+        }
+        return routeDTOList;
     }
 
     private void addTimetable(String datetime, Route route) {
@@ -79,10 +77,9 @@ public class RouteServiceImpl implements RouteService {
         timetableRepository.save(timetable);
     }
 
-    private void setStationRoute(Route route, List<Long> stations) {
-        for (int i = 0; i < stations.size(); i++) {
+    private void setStationRoute(Route route, List<Station> stations) {
+        for (Station station : stations) {
             StationRoute stationRoute = new StationRoute();
-            Station station = stationRepository.findStationByStationID(stations.get(i));
             stationRoute.setStation(station);
             stationRoute.setRouteStation(route);
             stationRouteRepository.save(stationRoute);

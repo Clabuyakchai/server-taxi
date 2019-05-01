@@ -27,7 +27,7 @@ public class StationServiceImpl implements StationService {
 
     @Override
     public StationDTO updateStation(StationDTO stationDTO) {
-        Station station = stationRepository.findStationByStationID(stationDTO.getId());
+        Station station = stationRepository.findStationByStationID(stationDTO.getStationID());
         station.setCity(stationDTO.getCity());
         station.setLocation(stationDTO.getLocation());
         station.setName(stationDTO.getName());
@@ -43,7 +43,7 @@ public class StationServiceImpl implements StationService {
 
     private StationDTO mapStationToStationDto(Station station){
         StationDTO stationDTO = new StationDTO();
-        stationDTO.setId(station.getStationID());
+        stationDTO.setStationID(station.getStationID());
         stationDTO.setCity(station.getCity());
         stationDTO.setLocation(station.getLocation());
         stationDTO.setName(station.getName());
@@ -52,7 +52,7 @@ public class StationServiceImpl implements StationService {
 
     private Station mapStationDtoToStation(StationDTO stationDTO){
         Station station = new Station();
-        station.setStationID(stationDTO.getId());
+        station.setStationID(stationDTO.getStationID());
         station.setCity(stationDTO.getCity());
         station.setLocation(stationDTO.getLocation());
         station.setName(stationDTO.getName());
@@ -63,7 +63,7 @@ public class StationServiceImpl implements StationService {
         List<StationDTO> stationDTOList = new ArrayList<>();
         for (Station s: stations) {
             StationDTO stationDTO = new StationDTO();
-            stationDTO.setId(s.getStationID());
+            stationDTO.setStationID(s.getStationID());
             stationDTO.setName(s.getName());
             stationDTO.setLocation(s.getLocation());
             stationDTO.setCity(s.getCity());

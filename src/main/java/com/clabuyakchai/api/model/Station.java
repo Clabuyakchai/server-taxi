@@ -1,5 +1,7 @@
 package com.clabuyakchai.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +18,7 @@ public class Station {
     private String city;
     @Column(nullable = false)
     private String location;
+    @JsonIgnore
     @OneToMany(mappedBy = "station")
     private List<StationRoute> stationRoutes;
 

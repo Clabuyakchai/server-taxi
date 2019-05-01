@@ -4,9 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class StationDTO {
-    @SerializedName("id")
+    @SerializedName("stationID")
     @Expose
-    private Long id;
+    private Long stationID;
     @SerializedName("name")
     @Expose
     private String name;
@@ -17,12 +17,12 @@ public class StationDTO {
     @Expose
     private String location;
 
-    public Long getId() {
-        return id;
+    public Long getStationID() {
+        return stationID;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setStationID(Long stationID) {
+        this.stationID = stationID;
     }
 
     public String getName() {

@@ -17,13 +17,28 @@ public class RouteController {
         this.routeService = routeService;
     }
 
+
+    /*
+
+        {
+          "datetime" : "02.05.2019 13:00",
+          "from" : "Minsk",
+          "to" : "Volozhin",
+          "price" : "5.5",
+          "stations" : [{ "stationID": 1, "name": "Ploshchad' svobody", "city": "Volozhin", "location": "123 123" },
+                        { "stationID": 2, "name": "Novyy rayon", "city": "Volozhin", "location": "123 123" },
+                        { "stationID": 3, "name": "Kamennaya gorka", "city": "Minsk", "location": "123 123" }]
+        }
+
+ */
     @PostMapping(value = "/create")
-    public void createRoute(@RequestBody RouteDTO routeDTO){
+    public void createRoute(@RequestBody RouteDTO routeDTO) {
         routeService.createRoute(routeDTO);
     }
 
+    // http://localhost:8090/route/routeby?datetime=02.05.2019&from=Minsk&to=Volozhin
     @GetMapping(value = "/routeby")
-    public List<RouteDTO> findRoutesByFromAndTo(@RequestParam String from, @RequestParam String to){
-        return routeService.findByFromAndTo(from, to);
+    public List<RouteDTO> findRoutesByFromAndTo(@RequestParam String datetime, @RequestParam String from, @RequestParam String to) {
+        return routeService.findByDatetimeAndFromAndTo(datetime, from, to);
     }
 }

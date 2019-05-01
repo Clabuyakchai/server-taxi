@@ -1,5 +1,7 @@
 package com.clabuyakchai.api.dto;
 
+import com.clabuyakchai.api.model.Bus;
+import com.clabuyakchai.api.model.Station;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -21,9 +23,12 @@ public class RouteDTO {
     @SerializedName("datetime")
     @Expose
     private String datetime;
-    @SerializedName("stationsID")
+    @SerializedName("stations")
     @Expose
-    private List<Long> stationsID;
+    private List<Station> stations;
+//    @SerializedName("bus")
+//    @Expose
+//    private Bus bus; ///TODO
 
     public String getFrom() {
         return from;
@@ -57,11 +62,11 @@ public class RouteDTO {
         this.datetime = datetime;
     }
 
-    public List<Long> getStationsID() {
-        return stationsID;
+    public List<Station> getStations() {
+        return stations;
     }
 
-    public void setStationsID(List<Long> stationsID) {
-        this.stationsID = stationsID;
+    public void setStations(List<Station> stations) {
+        this.stations = stations;
     }
 }

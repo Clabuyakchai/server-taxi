@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface RouteService {
     void createRoute(RouteDTO routeDTO);
-    List<RouteDTO> findByFromAndTo(String from, String to);
+
+    List<RouteDTO> findByDatetimeAndFromAndTo(String datetime, String from, String to);
 }
