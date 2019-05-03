@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class RouteServiceImpl implements RouteService {
@@ -58,6 +59,29 @@ public class RouteServiceImpl implements RouteService {
                 busDTO = mapBusToBusDto(busRoute.getBus());
             }
             routeDTO.setBus(busDTO);
+
+            List<StationRoute> stationRoutes = t.getRoute().getStationRoutes();
+            List<StationDTO> stationDTOs = new ArrayList<>();
+            for (StationRoute stationRoute : stationRoutes) {
+                stationDTOs.add(mapStationToStationDto(stationRoute.getStation()));
+            }
+            routeDTO.setStations(stationDTOs);
+            routeDTOList.add(routeDTO);
+        }
+        return routeDTOList;
+    }
+
+    @Override
+    public List<RouteDTO> findTimetableByDatetimeAndNameDriver(String datetime, String name) {
+        //TODO как решить проблему bus null
+        Set<Timetable> timetables = timetableRepository.findTimetableByStaff(datetime + "%", name);
+        List<RouteDTO> routeDTOList = new ArrayList<>();
+        for (Timetable t : timetables) {
+            RouteDTO routeDTO = new RouteDTO();
+            routeDTO.setDatetime(t.getDatetime());
+            routeDTO.setFrom(t.getRoute().getFrom());
+            routeDTO.setTo(t.getRoute().getTo());
+            routeDTO.setPrice(t.getRoute().getPrice());
 
             List<StationRoute> stationRoutes = t.getRoute().getStationRoutes();
             List<StationDTO> stationDTOs = new ArrayList<>();
