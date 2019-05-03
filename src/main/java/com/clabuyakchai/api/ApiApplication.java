@@ -19,14 +19,21 @@ public class ApiApplication implements CommandLineRunner {
 	private BusService busService;
 	private RouteService routeService;
 	private StationService stationService;
+	private BookingService bookingService;
 
 	@Autowired
-	public ApiApplication(LocalService localService, StaffService staffService, BusService busService, RouteService routeService, StationService stationService) {
+	public ApiApplication(LocalService localService,
+						  StaffService staffService,
+						  BusService busService,
+						  RouteService routeService,
+						  StationService stationService,
+						  BookingService bookingService) {
 		this.localService = localService;
 		this.staffService = staffService;
 		this.busService = busService;
 		this.routeService = routeService;
 		this.stationService = stationService;
+		this.bookingService = bookingService;
 	}
 
 	public static void main(String[] args) {
@@ -109,5 +116,9 @@ public class ApiApplication implements CommandLineRunner {
 				bus2);
 		routeService.createRoute(route);
 		routeService.createRoute(route2);
+
+		// Create Booking
+		bookingService.addBook(1L, 1L);
+		bookingService.addBook(1L, 2L);
 	}
 }

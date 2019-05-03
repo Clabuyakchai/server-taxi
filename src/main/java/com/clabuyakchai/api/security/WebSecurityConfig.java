@@ -38,6 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/station/*").permitAll()
                 .antMatchers("/route/*").permitAll()
                 .antMatchers("/bus/*").permitAll()
+                .antMatchers("/book/*").permitAll()
 
 //            .antMatchers("/userpage").permitAll()
                 // Disallow everything else..
@@ -50,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //TODO
         http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
 
-        // Optional, if you want to test the API from a browser
+        // Optional, if you want to findTimetableByDatetimeAndNameDriver the API from a browser
         // http.httpBasic();
     }
 

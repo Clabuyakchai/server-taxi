@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -62,6 +63,16 @@ public class LocalServiceImpl implements LocalService {
     public void deleteLocalByPhone(String phone) {
         Local local = localRepository.findLocalByPhone(phone);
         localRepository.delete(local);
+    }
+
+    @Override
+    public List<LocalDTO> findLocalByTimetableID(Long timetableID) {
+        List<Local> locals = localRepository.findLocalByTimetable(timetableID);
+        List<LocalDTO> list = new ArrayList<>();
+        for (Local local : locals) {
+            list.add(mapLocalToLocalDto(local));
+        }
+        return list;
     }
 
     private LocalDTO mapLocalToLocalDto(Local local) {

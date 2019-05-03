@@ -57,4 +57,9 @@ public class LocalController {
     public void deleteLocal(@PathVariable String phone){
         localService.deleteLocalByPhone(phone);
     }
+
+    @GetMapping(value = "/localbytimetable")
+    public List<LocalDTO> findLocalByTimetableID(@RequestParam Long timetableID){
+        return localService.findLocalByTimetableID(timetableID);
+    }
 }

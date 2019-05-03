@@ -15,6 +15,14 @@ public class Booking {
     @JoinColumn(name = "localID", referencedColumnName = "localID")
     private Local local;
 
+    public Booking() {
+    }
+
+    public Booking(Timetable timetable, Local local) {
+        this.timetable = timetable;
+        this.local = local;
+    }
+
     public Long getBookingID() {
         return bookingID;
     }

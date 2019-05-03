@@ -12,4 +12,5 @@ public interface LocalService {
     LocalDTO getLocalByPhone(String phone);
     LocalDTO updateLocal(LocalDTO localDTO);
     void deleteLocalByPhone(String phone);
+    List<LocalDTO> findLocalByTimetableID(Long timetableID);
 }

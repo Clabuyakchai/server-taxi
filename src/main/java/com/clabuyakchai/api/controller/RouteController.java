@@ -1,11 +1,13 @@
 package com.clabuyakchai.api.controller;
 
 import com.clabuyakchai.api.dto.RouteDTO;
+import com.clabuyakchai.api.model.Timetable;
 import com.clabuyakchai.api.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RequestMapping("/route")
 @RestController
@@ -41,5 +43,10 @@ public class RouteController {
     @GetMapping(value = "/routeby")
     public List<RouteDTO> findRoutesByFromAndTo(@RequestParam String datetime, @RequestParam String from, @RequestParam String to) {
         return routeService.findByDatetimeAndFromAndTo(datetime, from, to);
+    }
+
+    @GetMapping(value = "/test")
+    public List<RouteDTO> findTimetableByDatetimeAndNameDriver(@RequestParam String datetime, @RequestParam String name){
+        return routeService.findTimetableByDatetimeAndNameDriver(datetime, name);
     }
 }
