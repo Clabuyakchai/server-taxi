@@ -46,9 +46,9 @@ public class StaffController {
         return staffService.updateStaff(staffDTO);
     }
 
-    @GetMapping(value = "/delete/{phone}")
-    public void deleteStaff(@PathVariable String phone){
-        staffService.deleteStaffByPhone(phone);
+    @GetMapping(value = "/delete")
+    public void deleteStaff(@RequestParam Long staffID){
+        staffService.deleteStaffByID(staffID);
     }
 
     @GetMapping(value = "/drivebus")

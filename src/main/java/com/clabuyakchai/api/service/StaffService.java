@@ -8,6 +8,6 @@ public interface StaffService {
     String signUp(StaffDTO staffDTO);
     StaffDTO getStaffByPhone(String phone);
     StaffDTO updateStaff(StaffDTO staffDTO);
-    void deleteStaffByPhone(String phone);
+    void deleteStaffByID(Long staffID);
     void driveBus(Long staffID, Long busID);
 }

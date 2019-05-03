@@ -11,6 +11,6 @@ public interface LocalService {
     String signUp(LocalDTO localDTO);
     LocalDTO getLocalByPhone(String phone);
     LocalDTO updateLocal(LocalDTO localDTO);
-    void deleteLocalByPhone(String phone);
+    void deleteLocalByID(Long localID);
     List<LocalDTO> findLocalByTimetableID(Long timetableID);
 }

@@ -8,6 +8,7 @@ import com.clabuyakchai.api.repository.BookingRepository;
 import com.clabuyakchai.api.repository.LocalRepository;
 import com.clabuyakchai.api.repository.TimetableRepository;
 import com.clabuyakchai.api.service.BookingService;
+import com.clabuyakchai.api.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,18 +43,6 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<BookingDTO> getBookingByLocalID(Long localID) {
         List<Booking> bookings = bookingRepository.findBookingsByLocal(localRepository.findLocalByLocalID(localID));
-        return mapListBookingToListBookingDto(bookings);
-    }
-
-    private List<BookingDTO> mapListBookingToListBookingDto(List<Booking> bookings) {
-        List<BookingDTO> listBookDto = new ArrayList<>();
-        for (Booking b : bookings) {
-            listBookDto.add(new BookingDTO(b.getBookingID(),
-                    b.getTimetable().getRoute().getFrom(),
-                    b.getTimetable().getRoute().getTo(),
-                    b.getTimetable().getRoute().getPrice(),
-                    b.getTimetable().getDatetime()));
-        }
-        return listBookDto;
+        return Mapper.mapListBookingToListBookingDto(bookings);
     }
 }

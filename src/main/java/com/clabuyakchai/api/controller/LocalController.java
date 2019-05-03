@@ -31,6 +31,7 @@ public class LocalController {
 
     /*
     {
+            "localID" : "1"
           "phone" : "375441234567",
           "email" : "chai@gmail.com",
           "gender" : "male",
@@ -53,9 +54,9 @@ public class LocalController {
         return localService.updateLocal(localDTO);
     }
 
-    @GetMapping(value = "/delete/{phone}")
-    public void deleteLocal(@PathVariable String phone){
-        localService.deleteLocalByPhone(phone);
+    @GetMapping(value = "/delete")
+    public void deleteLocal(@RequestParam Long localID){
+        localService.deleteLocalByID(localID);
     }
 
     @GetMapping(value = "/localbytimetable")

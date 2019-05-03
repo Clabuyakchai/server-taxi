@@ -7,6 +7,7 @@ import com.clabuyakchai.api.repository.BusRepository;
 import com.clabuyakchai.api.repository.StaffRepository;
 import com.clabuyakchai.api.security.JwtTokenProvider;
 import com.clabuyakchai.api.service.StaffService;
+import com.clabuyakchai.api.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,31 +35,30 @@ public class StaffServiceImpl implements StaffService {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(phone, "123"));
             return jwtTokenProvider.createToken(phone);
         } else {
-            return "null";
+            return null;
         }
     }
 
     @Override
     public String signUp(StaffDTO staffDTO) {
-        staffRepository.save(mapStaffDtoToStaff(staffDTO, false));
+        staffRepository.save(Mapper.mapStaffDtoToStaff(staffDTO, false));
         return jwtTokenProvider.createToken(staffDTO.getPhone());
     }
 
     @Override
     public StaffDTO getStaffByPhone(String phone) {
-        return mapStaffToStaffDto(staffRepository.findStaffByPhone(phone));
+        return Mapper.mapStaffToStaffDto(staffRepository.findStaffByPhone(phone));
     }
 
     @Override
     public StaffDTO updateStaff(StaffDTO staffDTO) {
-        staffRepository.save(mapStaffDtoToStaff(staffDTO, true));
+        staffRepository.save(Mapper.mapStaffDtoToStaff(staffDTO, true));
         return staffDTO;
     }
 
     @Override
-    public void deleteStaffByPhone(String phone) {
-        Staff staff = staffRepository.findStaffByPhone(phone);
-        staffRepository.delete(staff);
+    public void deleteStaffByID(Long staffID) {
+        staffRepository.deleteById(staffID);
     }
 
     @Override
@@ -67,28 +67,5 @@ public class StaffServiceImpl implements StaffService {
         Bus bus = busRepository.findBusByBusID(busID);
         staff.setBus(bus);
         staffRepository.save(staff);
-    }
-
-    private StaffDTO mapStaffToStaffDto(Staff staff){
-        return new StaffDTO(staff.getStaffID(),
-                staff.getPhone(),
-                staff.getEmail(),
-                staff.getGender(),
-                staff.getName(),
-                staff.getAddress());
-    }
-
-    private Staff mapStaffDtoToStaff(StaffDTO staffDTO, Boolean flag){
-        Staff staff = new Staff(staffDTO.getName(),
-                staffDTO.getEmail(),
-                staffDTO.getPhone(),
-                staffDTO.getAddress(),
-                staffDTO.getGender());
-
-        if (flag){
-            staff.setStaffID(staffDTO.getStaffID());
-        }
-
-        return staff;
     }
 }

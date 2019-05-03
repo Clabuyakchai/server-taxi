@@ -4,6 +4,7 @@ import com.clabuyakchai.api.dto.StationDTO;
 import com.clabuyakchai.api.model.Station;
 import com.clabuyakchai.api.repository.StationRepository;
 import com.clabuyakchai.api.service.StationService;
+import com.clabuyakchai.api.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class StationServiceImpl implements StationService {
 
     @Override
     public void addStation(StationDTO stationDTO) {
-        stationRepository.save(mapStationDtoToStation(stationDTO, false));
+        stationRepository.save(Mapper.mapStationDtoToStation(stationDTO, false));
     }
 
     @Override
@@ -32,42 +33,12 @@ public class StationServiceImpl implements StationService {
         station.setLocation(stationDTO.getLocation());
         station.setName(stationDTO.getName());
         stationRepository.save(station);
-        return mapStationToStationDto(station);
+        return Mapper.mapStationToStationDto(station);
     }
 
     @Override
     public List<StationDTO> getStationsByCity(String city) {
         List<Station> stations = stationRepository.findStationsByCity(city);
-        return mapListStationToListStationDto(stations);
-    }
-
-    private StationDTO mapStationToStationDto(Station station){
-        return new StationDTO(station.getStationID(),
-                station.getName(),
-                station.getCity(),
-                station.getLocation());
-    }
-
-    private Station mapStationDtoToStation(StationDTO stationDTO, Boolean flag){
-         Station station = new Station(stationDTO.getName(),
-                stationDTO.getCity(),
-                stationDTO.getLocation());
-
-         if(flag){
-             station.setStationID(stationDTO.getStationID());
-         }
-
-        return station;
-    }
-
-    private List<StationDTO> mapListStationToListStationDto(List<Station> stations){
-        List<StationDTO> stationDTOList = new ArrayList<>();
-        for (Station station: stations) {
-            stationDTOList.add(new StationDTO(station.getStationID(),
-                    station.getName(),
-                    station.getCity(),
-                    station.getLocation()));
-        }
-        return stationDTOList;
+        return Mapper.mapListStationToListStationDto(stations);
     }
 }

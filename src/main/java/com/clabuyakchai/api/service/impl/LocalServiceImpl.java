@@ -5,6 +5,7 @@ import com.clabuyakchai.api.model.Local;
 import com.clabuyakchai.api.repository.LocalRepository;
 import com.clabuyakchai.api.security.JwtTokenProvider;
 import com.clabuyakchai.api.service.LocalService;
+import com.clabuyakchai.api.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,35 +35,34 @@ public class LocalServiceImpl implements LocalService {
 
     @Override
     public String signIn(String phone) {
-        if (localRepository.existsLocalByPhone(phone)){
+        if (localRepository.existsLocalByPhone(phone)) {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(phone, "123"));
             return jwtTokenProvider.createToken(phone);
         } else {
-            return "null";
+            return null; //TODO
         }
     }
 
     @Override
     public String signUp(LocalDTO localDTO) {
-        localRepository.save(mapLocalDtoToLocal(localDTO, false));
+        localRepository.save(Mapper.mapLocalDtoToLocal(localDTO, false));
         return jwtTokenProvider.createToken(localDTO.getPhone());
     }
 
     @Override
     public LocalDTO getLocalByPhone(String phone) {
-        return mapLocalToLocalDto(localRepository.findLocalByPhone(phone));
+        return Mapper.mapLocalToLocalDto(localRepository.findLocalByPhone(phone));
     }
 
     @Override
     public LocalDTO updateLocal(LocalDTO localDTO) {
-        localRepository.save(mapLocalDtoToLocal(localDTO, true));
+        localRepository.save(Mapper.mapLocalDtoToLocal(localDTO, true));
         return localDTO;
     }
 
     @Override
-    public void deleteLocalByPhone(String phone) {
-        Local local = localRepository.findLocalByPhone(phone);
-        localRepository.delete(local);
+    public void deleteLocalByID(Long localID) {
+        localRepository.deleteById(localID);
     }
 
     @Override
@@ -70,29 +70,8 @@ public class LocalServiceImpl implements LocalService {
         List<Local> locals = localRepository.findLocalByTimetable(timetableID);
         List<LocalDTO> list = new ArrayList<>();
         for (Local local : locals) {
-            list.add(mapLocalToLocalDto(local));
+            list.add(Mapper.mapLocalToLocalDto(local));
         }
         return list;
-    }
-
-    private LocalDTO mapLocalToLocalDto(Local local) {
-        return new LocalDTO(local.getLocalID(),
-                local.getPhone(),
-                local.getEmail(),
-                local.getGender(),
-                local.getName());
-    }
-
-    private Local mapLocalDtoToLocal(LocalDTO localDTO, Boolean flag) {
-        Local local = new Local(localDTO.getName(),
-                localDTO.getEmail(),
-                localDTO.getPhone(),
-                localDTO.getGender());
-
-        if (flag){
-            local.setLocalID(localDTO.getLocalID());
-        }
-
-        return local;
     }
 }

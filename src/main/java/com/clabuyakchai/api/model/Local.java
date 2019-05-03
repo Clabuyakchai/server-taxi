@@ -1,6 +1,7 @@
 package com.clabuyakchai.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Check;
 
 import javax.persistence.*;
 import java.util.List;

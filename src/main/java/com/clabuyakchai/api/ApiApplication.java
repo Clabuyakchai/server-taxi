@@ -44,10 +44,10 @@ public class ApiApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// Create Local
 		LocalDTO local = new LocalDTO(1L,
-				"Roman",
-				"chai@gmail.com",
 				"375291234567",
-				"male");
+				"chai@gmail.com",
+				"male",
+				"Roman");
 		localService.signUp(local);
 
 		// Create Station
