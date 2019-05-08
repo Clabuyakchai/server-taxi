@@ -81,13 +81,13 @@ public class ApiApplication implements CommandLineRunner {
 
 		//Create Stuff
 		StaffDTO staff = new StaffDTO(1L,
-				"375442345678",
+				"375296262034",
 				"123@gmail.com",
 				"female",
 				"Masha",
 				"Minsk");
-		StaffDTO staff2 = new StaffDTO(2L,
-				"375442345008",
+		StaffDTO staff2 = new StaffDTO(1L,
+				"375291234567",
 				"1233@gmail.com",
 				"male",
 				"Sasha",

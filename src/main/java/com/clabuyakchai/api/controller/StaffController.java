@@ -5,6 +5,8 @@ import com.clabuyakchai.api.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RequestMapping("/staff")
 @RestController
 public class StaffController {
@@ -37,8 +39,8 @@ public class StaffController {
     }
 
     @GetMapping(value = "/me")
-    public StaffDTO getStaff(@RequestParam String phone){
-        return staffService.getStaffByPhone(phone);
+    public StaffDTO getStaff(HttpServletRequest req){
+        return staffService.getStaffByPhone(req);
     }
 
     @PostMapping(value = "/update")

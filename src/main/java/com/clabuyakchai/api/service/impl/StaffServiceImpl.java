@@ -13,6 +13,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Service
 public class StaffServiceImpl implements StaffService {
 
@@ -46,8 +48,8 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public StaffDTO getStaffByPhone(String phone) {
-        return Mapper.mapStaffToStaffDto(staffRepository.findStaffByPhone(phone));
+    public StaffDTO getStaffByPhone(HttpServletRequest req) {
+        return Mapper.mapStaffToStaffDto(staffRepository.findStaffByPhone(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req))));
     }
 
     @Override
