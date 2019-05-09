@@ -44,7 +44,7 @@ public class ApiApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// Create Local
 		LocalDTO local = new LocalDTO(1L,
-				"375291234567",
+				"375447712565",
 				"chai@gmail.com",
 				"male",
 				"Roman");
@@ -81,7 +81,7 @@ public class ApiApplication implements CommandLineRunner {
 
 		//Create Stuff
 		StaffDTO staff = new StaffDTO(1L,
-				"375296262034",
+				"375441234567",
 				"123@gmail.com",
 				"female",
 				"Masha",

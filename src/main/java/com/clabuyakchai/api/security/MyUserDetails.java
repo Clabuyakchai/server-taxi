@@ -1,7 +1,9 @@
 package com.clabuyakchai.api.security;
 
 import com.clabuyakchai.api.model.Local;
+import com.clabuyakchai.api.model.Staff;
 import com.clabuyakchai.api.repository.LocalRepository;
+import com.clabuyakchai.api.repository.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,13 +15,16 @@ public class MyUserDetails implements UserDetailsService {
 
     @Autowired
     private LocalRepository localRepository;
+    @Autowired
+    private StaffRepository staffRepository;
 
     @Override
     public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
         final Local local = localRepository.findLocalByPhone(phoneNumber);
+        final Staff staff = staffRepository.findStaffByPhone(phoneNumber);
 
-        if (local == null) {
-            throw new UsernameNotFoundException("User with '" + phoneNumber + "' not found");
+        if (local == null && staff == null) {
+            throw new UsernameNotFoundException("Local or Staff with '" + phoneNumber + "' not found");
         }
 
         return org.springframework.security.core.userdetails.User//
@@ -32,5 +37,4 @@ public class MyUserDetails implements UserDetailsService {
                 .disabled(false)//
                 .build();
     }
-
 }

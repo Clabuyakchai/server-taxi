@@ -32,7 +32,7 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public void createRoute(RouteDTO routeDTO) {
-        Route route = Mapper.mapRouteDtoToRoute(routeDTO);
+        Route route = Mapper.mapRouteDtoToRoute(routeDTO, false);
         routeRepository.save(route);
 
         route = routeRepository.findTopByOrderByRouteIDDesc();
@@ -78,6 +78,7 @@ public class RouteServiceImpl implements RouteService {
         List<RouteDTO> routeDTOList = new ArrayList<>();
         for (Timetable t : timetables) {
             RouteDTO routeDTO = new RouteDTO();
+            routeDTO.setRouteID(t.getTimetableID());
             routeDTO.setDatetime(t.getDatetime());
             routeDTO.setFrom(t.getRoute().getFrom());
             routeDTO.setTo(t.getRoute().getTo());

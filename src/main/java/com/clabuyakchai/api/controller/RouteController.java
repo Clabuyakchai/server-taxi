@@ -45,7 +45,7 @@ public class RouteController {
         return routeService.findByDatetimeAndFromAndTo(datetime, from, to);
     }
 
-    @GetMapping(value = "/test")
+    @GetMapping(value = "/staffby")
     public List<RouteDTO> findTimetableByDatetimeAndNameDriver(@RequestParam String datetime, @RequestParam String name){
         return routeService.findTimetableByDatetimeAndNameDriver(datetime, name);
     }

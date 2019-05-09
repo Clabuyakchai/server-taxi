@@ -67,11 +67,16 @@ public class Mapper {
                 route.getPrice());
     }
 
-    public static Route mapRouteDtoToRoute(RouteDTO routeDTO) {
+    public static Route mapRouteDtoToRoute(RouteDTO routeDTO, Boolean flag) {
         Route route = new Route();
         route.setFrom(routeDTO.getFrom());
         route.setTo(routeDTO.getTo());
         route.setPrice(routeDTO.getPrice());
+
+        if (flag){
+            route.setRouteID(routeDTO.getRouteID());
+        }
+
         return route;
     }
 

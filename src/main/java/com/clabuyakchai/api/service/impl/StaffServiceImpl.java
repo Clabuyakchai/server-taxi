@@ -54,7 +54,9 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public StaffDTO updateStaff(StaffDTO staffDTO) {
-        staffRepository.save(Mapper.mapStaffDtoToStaff(staffDTO, true));
+        Staff st = Mapper.mapStaffDtoToStaff(staffDTO, true);
+        st.setBus(staffRepository.findStaffByStaffID(staffDTO.getStaffID()).getBus());
+        staffRepository.save(st);
         return staffDTO;
     }
 
