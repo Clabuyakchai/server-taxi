@@ -18,8 +18,8 @@ public class StationController {
     }
 
     @PostMapping(value = "/add")
-    public void addStation(@RequestBody StationDTO stationDTO) {
-        stationService.addStation(stationDTO);
+    public StationDTO addStation(@RequestBody StationDTO stationDTO) {
+        return stationService.addStation(stationDTO);
     }
 
     @PostMapping(value = "/update")
@@ -30,5 +30,10 @@ public class StationController {
     @GetMapping(value = "/{city}")
     public List<StationDTO> getAllStationByCity(@PathVariable String city){
         return stationService.getStationsByCity(city);
+    }
+
+    @GetMapping(value = "/all")
+    public List<StationDTO> getAllStation(){
+        return stationService.getStation();
     }
 }

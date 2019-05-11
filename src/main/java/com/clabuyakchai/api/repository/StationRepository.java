@@ -10,4 +10,5 @@ import java.util.List;
 public interface StationRepository extends JpaRepository<Station, Long> {
     Station findStationByStationID(Long id);
     List<Station> findStationsByCity(String city);
+    Station findStationByLatAndLng(String lat, String lng);
 }

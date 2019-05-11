@@ -17,7 +17,9 @@ public class Station {
     @Column(nullable = false)
     private String city;
     @Column(nullable = false)
-    private String location;
+    private String lat;
+    @Column(nullable = false)
+    private String lng;
     @JsonIgnore
     @OneToMany(mappedBy = "station")
     private List<StationRoute> stationRoutes;
@@ -25,10 +27,11 @@ public class Station {
     public Station() {
     }
 
-    public Station(String name, String city, String location) {
+    public Station(String name, String city, String lat, String lng) {
         this.name = name;
         this.city = city;
-        this.location = location;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     public Long getStationID() {
@@ -55,12 +58,20 @@ public class Station {
         this.city = city;
     }
 
-    public String getLocation() {
-        return location;
+    public String getLat() {
+        return lat;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
     }
 
     public List<StationRoute> getStationRoutes() {

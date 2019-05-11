@@ -13,18 +13,22 @@ public class StationDTO {
     @SerializedName("city")
     @Expose
     private String city;
-    @SerializedName("location")
+    @SerializedName("lat")
     @Expose
-    private String location;
+    private String lat;
+    @SerializedName("lng")
+    @Expose
+    private String lng;
 
     public StationDTO() {
     }
 
-    public StationDTO(Long stationID, String name, String city, String location) {
+    public StationDTO(Long stationID, String name, String city, String lat, String lng) {
         this.stationID = stationID;
         this.name = name;
         this.city = city;
-        this.location = location;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     public Long getStationID() {
@@ -51,11 +55,19 @@ public class StationDTO {
         this.city = city;
     }
 
-    public String getLocation() {
-        return location;
+    public String getLat() {
+        return lat;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
     }
 }

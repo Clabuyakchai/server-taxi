@@ -49,6 +49,17 @@ public class Mapper {
                 bus.getCountSeat());
     }
 
+    public static List<BusDTO> mapListBusToListBusDTO(List<Bus> buses){
+        List<BusDTO> busDTOS = new ArrayList<>();
+        for (Bus b : buses) {
+            busDTOS.add(new BusDTO(b.getBusID(),
+                    b.getBusmodel(),
+                    b.getCarNumber(),
+                    b.getCountSeat()));
+        }
+        return busDTOS;
+    }
+
     public static Bus mapBusDtoToBus(BusDTO busDTO, Boolean flag){
         Bus bus = new Bus(busDTO.getBusmodel(),
                 busDTO.getCarNumber(),
@@ -84,13 +95,15 @@ public class Mapper {
         return new StationDTO(station.getStationID(),
                 station.getName(),
                 station.getCity(),
-                station.getLocation());
+                station.getLat(),
+                station.getLng());
     }
 
     public static Station mapStationDtoToStation(StationDTO stationDTO, Boolean flag) {
         Station station = new Station(stationDTO.getName(),
                 stationDTO.getCity(),
-                stationDTO.getLocation());
+                stationDTO.getLat(),
+                stationDTO.getLng());
 
         if (flag) {
             station.setStationID(stationDTO.getStationID());
@@ -128,7 +141,8 @@ public class Mapper {
             stationDTOList.add(new StationDTO(station.getStationID(),
                     station.getName(),
                     station.getCity(),
-                    station.getLocation()));
+                    station.getLat(),
+                    station.getLng()));
         }
         return stationDTOList;
     }

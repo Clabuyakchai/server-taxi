@@ -5,6 +5,8 @@ import com.clabuyakchai.api.service.BusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/bus")
 @RestController
 public class BusController {
@@ -26,12 +28,22 @@ public class BusController {
      */
 
     @PostMapping(value = "/add")
-    public void addBus(@RequestBody BusDTO busDTO) {
-        busService.addBus(busDTO);
+    public BusDTO addBus(@RequestBody BusDTO busDTO) {
+        return busService.addBus(busDTO);
     }
 
     @GetMapping(value = "/delete")
     public void deleteBus(@RequestParam Long busID) {
         busService.deleteBus(busID);
+    }
+
+    @GetMapping(value = "/id")
+    public BusDTO findBusbyStaffId(@RequestParam Long staffID){
+        return busService.findBusByStaffId(staffID);
+    }
+
+    @GetMapping(value = "/all")
+    public List<BusDTO> findAll(){
+        return busService.findAll();
     }
 }
