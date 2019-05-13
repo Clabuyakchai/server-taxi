@@ -26,6 +26,14 @@ public class StaffDTO {
     public StaffDTO() {
     }
 
+    public StaffDTO(Long staffID, String phone, String email, String gender, String name) {
+        this.staffID = staffID;
+        this.phone = phone;
+        this.email = email;
+        this.gender = gender;
+        this.name = name;
+    }
+
     public StaffDTO(Long staffID, String phone, String email, String gender, String name, String address) {
         this.staffID = staffID;
         this.phone = phone;

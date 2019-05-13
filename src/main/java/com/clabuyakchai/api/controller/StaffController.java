@@ -57,4 +57,9 @@ public class StaffController {
     public void driveBus(@RequestParam Long staffID,@RequestParam Long busID){
         staffService.driveBus(staffID, busID);
     }
+
+    @GetMapping(value = "/becomedriver")
+    public void becomeDriver(@RequestParam String phone){
+        staffService.becomeDriver(phone);
+    }
 }

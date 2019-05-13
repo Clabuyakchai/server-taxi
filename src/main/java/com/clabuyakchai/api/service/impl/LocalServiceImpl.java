@@ -2,7 +2,9 @@ package com.clabuyakchai.api.service.impl;
 
 import com.clabuyakchai.api.dto.LocalDTO;
 import com.clabuyakchai.api.model.Local;
+import com.clabuyakchai.api.model.Staff;
 import com.clabuyakchai.api.repository.LocalRepository;
+import com.clabuyakchai.api.repository.StaffRepository;
 import com.clabuyakchai.api.security.JwtTokenProvider;
 import com.clabuyakchai.api.service.LocalService;
 import com.clabuyakchai.api.util.Mapper;
@@ -11,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +23,14 @@ public class LocalServiceImpl implements LocalService {
     private final LocalRepository localRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManager authenticationManager;
+    private final StaffRepository staffRepository;
 
     @Autowired
-    public LocalServiceImpl(LocalRepository localRepository, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
+    public LocalServiceImpl(LocalRepository localRepository, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager, StaffRepository staffRepository) {
         this.localRepository = localRepository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.authenticationManager = authenticationManager;
+        this.staffRepository = staffRepository;
     }
 
     @Override
@@ -45,13 +50,21 @@ public class LocalServiceImpl implements LocalService {
 
     @Override
     public String signUp(LocalDTO localDTO) {
-        localRepository.save(Mapper.mapLocalDtoToLocal(localDTO, false));
-        return jwtTokenProvider.createToken(localDTO.getPhone());
+        if (!staffRepository.existsStaffByPhone(localDTO.getPhone()) || !localRepository.existsLocalByPhone(localDTO.getPhone())){
+            localRepository.save(Mapper.mapLocalDtoToLocal(localDTO, false));
+            return jwtTokenProvider.createToken(localDTO.getPhone());
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public LocalDTO getLocalByPhone(String phone) {
-        return Mapper.mapLocalToLocalDto(localRepository.findLocalByPhone(phone));
+    public LocalDTO getLocalByPhone(HttpServletRequest req) {
+        Local local = localRepository.findLocalByPhone(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
+        if (local != null){
+            return Mapper.mapLocalToLocalDto(local);
+        }
+        return new LocalDTO();
     }
 
     @Override

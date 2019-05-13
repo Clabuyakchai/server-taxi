@@ -146,4 +146,12 @@ public class Mapper {
         }
         return stationDTOList;
     }
+
+    public static StaffDTO mapLocalToStaffDTO(Local local){
+        return new StaffDTO(local.getLocalID(),
+                local.getPhone(),
+                local.getEmail(),
+                local.getGender(),
+                local.getName());
+    }
 }

@@ -1,9 +1,13 @@
 package com.clabuyakchai.api.service.impl;
 
 import com.clabuyakchai.api.dto.StaffDTO;
+import com.clabuyakchai.api.model.Booking;
 import com.clabuyakchai.api.model.Bus;
+import com.clabuyakchai.api.model.Local;
 import com.clabuyakchai.api.model.Staff;
+import com.clabuyakchai.api.repository.BookingRepository;
 import com.clabuyakchai.api.repository.BusRepository;
+import com.clabuyakchai.api.repository.LocalRepository;
 import com.clabuyakchai.api.repository.StaffRepository;
 import com.clabuyakchai.api.security.JwtTokenProvider;
 import com.clabuyakchai.api.service.StaffService;
@@ -14,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Service
 public class StaffServiceImpl implements StaffService {
@@ -22,22 +27,31 @@ public class StaffServiceImpl implements StaffService {
     private final BusRepository busRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManager authenticationManager;
+    private final LocalRepository localRepository;
+    private final BookingRepository bookingRepository;
 
     @Autowired
-    public StaffServiceImpl(StaffRepository staffRepository, BusRepository busRepository, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
+    public StaffServiceImpl(StaffRepository staffRepository,
+                            BusRepository busRepository,
+                            JwtTokenProvider jwtTokenProvider,
+                            AuthenticationManager authenticationManager,
+                            LocalRepository localRepository,
+                            BookingRepository bookingRepository) {
         this.staffRepository = staffRepository;
         this.busRepository = busRepository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.authenticationManager = authenticationManager;
+        this.localRepository = localRepository;
+        this.bookingRepository = bookingRepository;
     }
 
     @Override
     public String signIn(String phone) {
-        if (staffRepository.existsStaffByPhone(phone)){
+        if (staffRepository.existsStaffByPhone(phone) || localRepository.existsLocalByPhone(phone)){
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(phone, "123"));
             return jwtTokenProvider.createToken(phone);
         } else {
-            return null;
+            return "null";
         }
     }
 
@@ -49,7 +63,11 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public StaffDTO getStaffByPhone(HttpServletRequest req) {
-        return Mapper.mapStaffToStaffDto(staffRepository.findStaffByPhone(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req))));
+        Staff staff = staffRepository.findStaffByPhone(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
+        if(staff != null){
+            return Mapper.mapStaffToStaffDto(staff);
+        }
+        return null;
     }
 
     @Override
@@ -71,5 +89,18 @@ public class StaffServiceImpl implements StaffService {
         Bus bus = busRepository.findBusByBusID(busID);
         staff.setBus(bus);
         staffRepository.save(staff);
+    }
+
+    @Override
+    public void becomeDriver(String phone) {
+        Local local = localRepository.findLocalByPhone(phone);
+        List<Booking> bookings = bookingRepository.findBookingsByLocal(local);
+
+        for (Booking booking: bookings) {
+            bookingRepository.delete(booking);
+        }
+
+        localRepository.delete(local);
+        signUp(Mapper.mapLocalToStaffDTO(local));
     }
 }

@@ -6,6 +6,7 @@ import com.clabuyakchai.api.service.LocalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequestMapping("/local")
@@ -45,8 +46,8 @@ public class LocalController {
     }
 
     @GetMapping(value = "/me")
-    public LocalDTO getLocal(@RequestParam String phone){
-        return localService.getLocalByPhone(phone);
+    public LocalDTO getLocal(HttpServletRequest req){
+        return localService.getLocalByPhone(req);
     }
 
     @PostMapping(value = "/update")

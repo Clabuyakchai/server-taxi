@@ -12,4 +12,5 @@ public interface StaffService {
     StaffDTO updateStaff(StaffDTO staffDTO);
     void deleteStaffByID(Long staffID);
     void driveBus(Long staffID, Long busID);
+    void becomeDriver(String phone);
 }
