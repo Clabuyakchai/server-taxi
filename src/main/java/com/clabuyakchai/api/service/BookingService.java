@@ -9,4 +9,5 @@ public interface BookingService {
     void addBook(Long localID, Long timetableID);
     void deleteBook(Long bookingID);
     List<BookingDTO> getBookingByLocalID(Long localID);
+    List<BookingDTO> getBookingByLocalID(Long localID, String datetime);
 }

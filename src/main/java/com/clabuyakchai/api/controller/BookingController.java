@@ -21,17 +21,17 @@ public class BookingController {
     }
 
     @GetMapping(value = "/add")
-    public void addBook(@RequestParam Long localID, @RequestParam Long timetableID){
+    public void addBook(@RequestParam Long localID, @RequestParam Long timetableID) {
         bookingService.addBook(localID, timetableID);
     }
 
     @GetMapping(value = "/delete")
-    public void deleteBook(@RequestParam Long bookingID){
+    public void deleteBook(@RequestParam Long bookingID) {
         bookingService.deleteBook(bookingID);
     }
 
     @GetMapping(value = "/booklocal")
-    public List<BookingDTO> getBookingByLocalID(@RequestParam  Long localID){
-        return bookingService.getBookingByLocalID(localID);
+    public List<BookingDTO> getBookingByLocalID(@RequestParam Long localID, @RequestParam String datetime) {
+        return bookingService.getBookingByLocalID(localID, datetime);
     }
 }

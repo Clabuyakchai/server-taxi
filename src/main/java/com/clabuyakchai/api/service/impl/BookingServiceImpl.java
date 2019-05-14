@@ -45,4 +45,9 @@ public class BookingServiceImpl implements BookingService {
         List<Booking> bookings = bookingRepository.findBookingsByLocal(localRepository.findLocalByLocalID(localID));
         return Mapper.mapListBookingToListBookingDto(bookings);
     }
+
+    @Override
+    public List<BookingDTO> getBookingByLocalID(Long localID, String datetime) {
+        return Mapper.mapListBookingToListBookingDto(bookingRepository.getBookingByLocalIDAndDatetime(localID, datetime));
+    }
 }

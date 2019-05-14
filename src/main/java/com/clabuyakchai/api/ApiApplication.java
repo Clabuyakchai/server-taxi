@@ -128,7 +128,7 @@ public class ApiApplication implements CommandLineRunner {
 		RouteDTO route2 = new RouteDTO("Minsk",
 				"Volozhin",
 				5.5f,
-				"03.05.2019 13:30",
+				"20.05.2019 13:30",
 				stationDTOS,
 				bus2);
 		routeService.createRoute(route);
