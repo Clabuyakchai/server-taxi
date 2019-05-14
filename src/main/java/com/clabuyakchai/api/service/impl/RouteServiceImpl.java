@@ -48,6 +48,7 @@ public class RouteServiceImpl implements RouteService {
         List<RouteDTO> routeDTOList = new ArrayList<>();
         for (Timetable t : timetables) {
             RouteDTO routeDTO = new RouteDTO();
+            routeDTO.setRouteID(t.getTimetableID());
             routeDTO.setDatetime(t.getDatetime());
             routeDTO.setFrom(t.getRoute().getFrom());
             routeDTO.setTo(t.getRoute().getTo());
