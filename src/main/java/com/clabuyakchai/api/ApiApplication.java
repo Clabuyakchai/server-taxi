@@ -47,24 +47,24 @@ public class ApiApplication implements CommandLineRunner {
 				"375447654321",
 				"chai@gmail.com",
 				"male",
-				"Roman");
+				"Роман");
 		localService.signUp(local);
 
 		// Create Station
-		StationDTO vol1 = new StationDTO(1L, "Sel'khoztekhnika", "Volozhin", "54.087945", "26.549502");
-		StationDTO vol2 = new StationDTO(2L, "Vokzal", "Volozhin", "54.086283", "26.535976");
-		StationDTO vol3 = new StationDTO(3L, "Ploshchad' Svobody", "Volozhin", "54.090100", "26.528255");
-		StationDTO vol4 = new StationDTO(4L, "Bank", "Volozhin", "54.092529", "26.520553");
-		StationDTO vol5 = new StationDTO(5L, "Rynok", "Volozhin", "54.093385", "26.517448");
-		StationDTO vol6 = new StationDTO(6L, "Novyy Mikrorayon", "Volozhin", "54.094379", "26.513768");
+		StationDTO vol1 = new StationDTO(1L, "Сельхозтехника", "Воложин", "54.087945", "26.549502");
+		StationDTO vol2 = new StationDTO(2L, "Вокзал", "Воложин", "54.086283", "26.535976");
+		StationDTO vol3 = new StationDTO(3L, "Площадь свободы", "Воложин", "54.090100", "26.528255");
+		StationDTO vol4 = new StationDTO(4L, "Банк", "Воложин", "54.092529", "26.520553");
+		StationDTO vol5 = new StationDTO(5L, "Рынок", "Воложин", "54.093385", "26.517448");
+		StationDTO vol6 = new StationDTO(6L, "Новый микрорайон", "Воложин", "54.094379", "26.513768");
 
-		StationDTO min1 = new StationDTO(7L, "Kamennaya Gorka", "Minsk", "53.907470", "27.436315");
-		StationDTO min2 = new StationDTO(8L, "Kuntsovshchina", "Minsk", "53.905979", "27.454706");
-		StationDTO min3 = new StationDTO(9L, "Sportivnaya", "Minsk", "53.908241", "27.479865");
-		StationDTO min4 = new StationDTO(10L, "Pushkinskaya", "Minsk", "53.909505", "27.497967");
-		StationDTO min5 = new StationDTO(11L, "Molodezhnaya", "Minsk", "53.906350", "27.523587");
-		StationDTO min6 = new StationDTO(12L, "Frunzenskaya", "Minsk", "53.905238", "27.539371");
-		StationDTO min7 = new StationDTO(13L, "Ploshchad' Lenina", "Minsk", "53.892304", "27.545411");
+		StationDTO min1 = new StationDTO(7L, "Каменная горка", "Минск", "53.907470", "27.436315");
+		StationDTO min2 = new StationDTO(8L, "Кунцевщина", "Минск", "53.905979", "27.454706");
+		StationDTO min3 = new StationDTO(9L, "Спортивная", "Минск", "53.908241", "27.479865");
+		StationDTO min4 = new StationDTO(10L, "Пушкинская", "Минск", "53.909505", "27.497967");
+		StationDTO min5 = new StationDTO(11L, "Молодежная", "Минск", "53.906350", "27.523587");
+		StationDTO min6 = new StationDTO(12L, "Фрунзенская", "Минск", "53.905238", "27.539371");
+		StationDTO min7 = new StationDTO(13L, "Площадь Ленина", "Минск", "53.892304", "27.545411");
 		stationService.addStation(vol1);
 		stationService.addStation(vol2);
 		stationService.addStation(vol3);
@@ -101,14 +101,14 @@ public class ApiApplication implements CommandLineRunner {
 				"375441234567",
 				"123@gmail.com",
 				"female",
-				"Masha",
-				"Minsk");
+				"Маша",
+				"Минск");
 		StaffDTO staff2 = new StaffDTO(1L,
 				"375291234567",
 				"1233@gmail.com",
 				"male",
-				"Sasha",
-				"Minsk");
+				"Саша",
+				"Минск");
 		staffService.signUp(staff);
 		staffService.signUp(staff2);
 		staffService.driveBus(1L, 1L);
@@ -119,16 +119,16 @@ public class ApiApplication implements CommandLineRunner {
 		stationDTOS.add(vol1);
 		stationDTOS.add(vol2);
 		stationDTOS.add(min1);
-		RouteDTO route = new RouteDTO("Minsk",
-				"Volozhin",
+		RouteDTO route = new RouteDTO("Минск",
+				"Одесса",
 				5.5f,
-				"03.05.2019 13:00",
+				"24.05.2019 13:00",
 				stationDTOS,
 				bus);
-		RouteDTO route2 = new RouteDTO("Minsk",
-				"Volozhin",
+		RouteDTO route2 = new RouteDTO("Минск",
+				"Воложин",
 				5.5f,
-				"20.05.2019 13:30",
+				"24.05.2019 13:30",
 				stationDTOS,
 				bus2);
 		routeService.createRoute(route);
